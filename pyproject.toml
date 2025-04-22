@@ -5,13 +5,17 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
-    "json5>=0.12.0"
+    "json5>=0.12.0",
+    "typer>=0.15.2",
+    "toml",
+    "jinja2",
+
 ]
 [tool.uv]
 managed = true
 [tool.uv.sources]
-pyskeleton-core = { workspace = true}
-pyskeleton-interfaces = { workspace = true}
+pyskeleton-core = { workspace = true,editable = true }
+pyskeleton-interfaces = { workspace = true,editable = true }
 [tool.uv.workspace]
 members = [
     "packages/pyskeleton-core",
