@@ -14,8 +14,8 @@ dependencies = [
 [tool.uv]
 managed = true
 [tool.uv.sources]
-pyskeleton-core = { workspace = true,editable = true }
-pyskeleton-interfaces = { workspace = true,editable = true }
+pyskeleton-core = { editable = true }
+pyskeleton-interfaces = { editable = true }
 [tool.uv.workspace]
 members = [
     "packages/pyskeleton-core",
