@@ -1,0 +1,24 @@
+[project]
+name = "pyskeleton-core"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "isort>=6.0.1",
+    "jinja2>=3.1.6",
+    "json5>=0.12.0",
+    "tomli>=2.2.1",
+    "uv>=0.6.16",
+    "isort>=6.0.1",
+    "ruff>=0.11.6",
+    "toml>=0.10.2",
+]
+
+[[tool.uv.index]]
+url = "https://mirrors.aliyun.com/pypi/simple/"
+default = true
+
+[dependency-groups]
+dev = [
+]

@@ -1,0 +1,57 @@
+import os
+from typing import Optional
+
+from {{project_name}}_core.config.base import BaseParameters
+from {{project_name}}.utils.file.project import ProjectHelper
+
+
+class LoggerConfig(BaseParameters):
+    """
+    配置类，用于存储日志相关的参数和设置.
+    """
+
+    # 日志级别
+    log_level: str = BaseParameters.field(
+        default="DEBUG",
+        description="Log Level",
+        tags=["log"],
+    )
+    # 日志文件路径
+    log_dir: str = BaseParameters.field(
+        default="logs",
+        description="Log File Path",
+        tags=["log"],
+    )
+
+
+
+class APPConfig(BaseParameters):
+    """
+    配置类，用于存储应用程序的参数和设置.
+    """
+
+    # 应用程序名称
+    app_name: str = BaseParameters.field(
+        default="Elibris",
+        description="Application Name",
+        tags=["app"],
+    )
+    # 应用程序版本
+    app_version: str = BaseParameters.field(
+        default="0.1.0",
+        description="Application Version",
+        tags=["app"],
+    )
+    # 应用程序描述
+    app_description: str = BaseParameters.field(
+        default="Elibris Application",
+        description="Application Description",
+        tags=["app"],
+    )
+
+    logger: LoggerConfig = BaseParameters.field(
+        default=LoggerConfig(),
+        description="Logger Configuration",
+        tags=["logger"],
+    )
+

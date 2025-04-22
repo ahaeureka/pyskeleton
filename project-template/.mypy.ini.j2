@@ -1,0 +1,170 @@
+[mypy]
+exclude = /tests/
+# plugins = pydantic.mypy
+[mypy-{{project_name}}_app.*]
+strict_optional = False
+follow_imports = skip
+follow_untyped_imports = True
+
+
+
+[mypy-{{project_name}}_core.*]
+strict_optional = False
+follow_imports = skip
+follow_untyped_imports = True
+[mypy-{{project_name}}_interfaces.*]
+strict_optional = False
+follow_imports = skip
+follow_untyped_imports = True
+# magic_pdf.config.enums
+[mypy-magic_pdf.*]
+follow_untyped_imports = True
+ignore_missing_imports = True
+# rapidocr
+[mypy-rapidocr.*]
+follow_untyped_imports = True
+
+
+# doclayout_yolo
+[mypy-doclayout_yolo.*]
+follow_untyped_imports = True
+
+
+
+[mypy-graphviz.*]
+ignore_missing_imports = True
+
+[mypy-cachetools.*]
+ignore_missing_imports = True
+
+[mypy-coloredlogs.*]
+ignore_missing_imports = True
+
+[mypy-termcolor.*]
+ignore_missing_imports = True
+
+[mypy-pydantic.*]
+strict_optional = False
+ignore_missing_imports = True
+follow_imports = skip
+
+[mypy-sentence_transformers.*]
+ignore_missing_imports = True
+
+[mypy-InstructorEmbedding.*]
+ignore_missing_imports = True
+
+[mypy-llama_index.*]
+ignore_missing_imports = True
+
+[mypy-langchain.*]
+ignore_missing_imports = True
+
+[mypy-pptx.*]
+ignore_missing_imports = True
+
+[mypy-docx.*]
+ignore_missing_imports = True
+
+[mypy-markdown.*]
+ignore_missing_imports = True
+
+[mypy-auto_gpt_plugin_template.*]
+ignore_missing_imports = True
+
+[mypy-spacy.*]
+ignore_missing_imports = True
+follow_imports = skip
+
+[mypy-jieba.*]
+ignore_missing_imports = True
+
+# Storage
+[mypy-msgpack.*]
+ignore_missing_imports = True
+
+[mypy-rocksdict.*]
+ignore_missing_imports = True
+
+[mypy-weaviate.*]
+ignore_missing_imports = True
+
+[mypy-pymilvus.*]
+ignore_missing_imports = True
+
+[mypy-elasticsearch.*]
+ignore_missing_imports = True
+
+[mypy-cryptography.*]
+ignore_missing_imports = True
+
+# Datasource
+[mypy-pyspark.*]
+ignore_missing_imports = True
+
+[mypy-regex.*]
+ignore_missing_imports = True
+
+[mypy-sqlparse.*]
+ignore_missing_imports = True
+
+[mypy-clickhouse_connect.*]
+ignore_missing_imports = True
+
+[mypy-fastchat.protocol.api_protocol]
+ignore_missing_imports = True
+
+[mypy-neo4j.*]
+ignore_missing_imports = True
+
+# Agent
+[mypy-seaborn.*]
+ignore_missing_imports = True
+
+[mypy-unstructured.*]
+ignore_missing_imports = True
+
+[mypy-rich.*]
+ignore_missing_imports = True
+
+[mypy-ollama.*]
+ignore_missing_imports = True
+
+[mypy-networkx.*]
+ignore_missing_imports = True
+
+[mypy-pypdf.*]
+ignore_missing_imports = True
+
+[mypy-qianfan.*]
+ignore_missing_imports = True
+[mypy-paddleocr.*]
+ignore_missing_imports = True
+[mypy-surya.*]
+ignore_missing_imports = True
+[mypy-wired_table_rec.*]
+ignore_missing_imports = True
+[mypy-lineless_table_rec.*]
+ignore_missing_imports = True
+[mypy-table_cls.*]
+ignore_missing_imports = True
+[mypy-typer.*]
+ignore_missing_imports = True
+follow_untyped_imports = True
+
+[mypy-trio_asyncio.*]
+ignore_missing_imports = True
+follow_untyped_imports = True
+
+[mypy-pdf2image.*]
+ignore_missing_imports = True
+follow_untyped_imports = True
+[mypy-toml.*]
+ignore_missing_imports = True
+follow_untyped_imports = True
+
+[mypy-numpy.*]
+ignore_missing_imports = True
+follow_untyped_imports = True
+
+

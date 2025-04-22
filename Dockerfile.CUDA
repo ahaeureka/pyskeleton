@@ -1,0 +1,48 @@
+FROM nvidia/cuda:12.6.3-cudnn-devel-ubuntu22.04
+ARG PYTHON_VERSION=3.11
+ARG PIP_INDEX_URL="https://mirrors.aliyun.com/pypi/simple/"
+# Add parameter to control whether to use Tsinghua Ubuntu mirror
+ARG USE_MIRROR_UBUNTU="true"
+ARG DEFAULT_VENV=/opt/.uv.venv
+ARG EXTRAS="cuda126"
+WORKDIR /app
+COPY . .
+RUN if [ "$USE_MIRROR_UBUNTU" = "true" ]; then \
+    sed -i 's/archive.ubuntu.com/mirrors.aliyun.com/g' /etc/apt/sources.list && \
+    sed -i 's/security.ubuntu.com/mirrors.aliyun.com/g' /etc/apt/sources.list; \
+    fi && \
+    apt-get update && apt-get install -y --no-install-recommends gnupg ca-certificates apt-transport-https \
+    git \
+    curl \
+    wget \
+    python${PYTHON_VERSION} \
+    python${PYTHON_VERSION}-dev \
+    python${PYTHON_VERSION}-venv \
+    python3-pip \
+    pkg-config libicu-dev \
+    poppler-utils \
+    libmagic1 \
+    libpython3-dev \
+    libjemalloc-dev \
+    libgl1-mesa-glx libglib2.0-0 \
+    && python${PYTHON_VERSION} -m pip install --upgrade pip \
+    && python${PYTHON_VERSION} -m pip install --upgrade pipx \
+    && pipx install -i $PIP_INDEX_URL uv --global \
+    && uv venv --seed $DEFAULT_VENV \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+ENV UV_LINK_MODE=copy \
+    PIP_INDEX_URL=$PIP_INDEX_URL \
+    VIRTUAL_ENV=$DEFAULT_VENV \
+    UV_PROJECT_ENVIRONMENT=$DEFAULT_VENV \
+    UV_PYTHON=$DEFAULT_VENV/bin/python3 \
+    UV_INDEX=$PIP_INDEX_URL \
+    UV_DEFAULT_INDEX=$PIP_INDEX_URL \
+    MODELSCOPE_CACHE=/app/models
+
+RUN pip config set global.index-url $PIP_INDEX_URL && \
+    pip config set global.trusted-host $(echo "$PIP_INDEX_URL" | sed -E 's|^https?://([^/]+).*|\1|') && \
+    . $DEFAULT_VENV/bin/activate  && \
+    extras=$(echo $EXTRAS | tr ',' '\n' | while read extra; do echo "--extra $extra"; done | tr '\n' ' ') && \
+    uv sync -v --active --all-packages --default-index $PIP_INDEX_URL --index-strategy unsafe-best-match --prerelease=allow --no-build-isolation && \
+    echo "/app" >> /opt/.uv.venv/lib/python${PYTHON_VERSION}/site-packages/elibris.pth

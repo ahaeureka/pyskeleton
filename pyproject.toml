@@ -1,0 +1,43 @@
+[project]
+name = "pyskeleton"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "json5>=0.12.0"
+]
+[tool.uv]
+managed = true
+[tool.uv.sources]
+pyskeleton-core = { workspace = true}
+pyskeleton-interfaces = { workspace = true}
+[tool.uv.workspace]
+members = [
+    "packages/pyskeleton-core",
+    "packages/pyskeleton-interfaces",
+]
+
+[[tool.uv.index]]
+url = "https://mirrors.aliyun.com/pypi/simple/"
+default = true
+
+[dependency-groups]
+dev = [
+    "flake8>=7.2.0",
+    "pre-commit>=4.2.0",
+]
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = {"pyskeleton_core" = "packages/pyskeleton-core/src/pyskeleton_core", "pyskeleton_interfaces" = "packages/pyskeleton-interfaces/src/pyskeleton_interfaces"}
+
+packages = ["pyskeleton_core", "pyskeleton_interfaces"]
+[tool.setuptools.package-data]
+"*" = ["project-template/**"]  # 包含所有子目录和文件
+# 显式映射包路径
+[project.scripts]
+pyskeleton = "pyskeleton_interfaces.cli:main"
+
