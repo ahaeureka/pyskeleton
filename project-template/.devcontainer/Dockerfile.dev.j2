@@ -17,8 +17,7 @@ RUN . .devcontainer/.env && \
     useradd -u $USER_UID -g $USER_GID -m $USERNAME && \
     chown -R $USER_UID:$USER_GID /app
 RUN if [ "$USE_MIRROR_UBUNTU" = "true" ]; then \
-    sed -i 's/archive.ubuntu.com/mirrors.aliyun.com/g' /etc/apt/sources.list && \
-    sed -i 's/security.ubuntu.com/mirrors.aliyun.com/g' /etc/apt/sources.list; \
+    sed -i 's|deb.debian.org|mirrors.aliyun.com|g' /etc/apt/sources.list.d/debian.sources; \
     fi && \
     apt-get update && apt-get install -y --no-install-recommends gnupg ca-certificates apt-transport-https \
     git \
@@ -28,6 +27,7 @@ RUN if [ "$USE_MIRROR_UBUNTU" = "true" ]; then \
     ssh zsh autojump curl git-flow vim sudo \
     fonts-wqy-microhei fonts-noto-cjk \
     locales \
+    && sed -i '/zh_CN.UTF-8/s/^# //g' /etc/locale.gen \
     && locale-gen zh_CN.UTF-8 \
     && update-locale LANG=zh_CN.UTF-8 \
     && chown -R $USERNAME:$GROUPNAME $VIRTUAL_ENV \

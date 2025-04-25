@@ -203,6 +203,4 @@ output2/
 results
 .ruff_cache
 .venv.make
-.devcontainer/dev.toml
-dev.toml
-project-template/.devcontainer/dev.toml
+.mypy_cache
