@@ -14,8 +14,9 @@ dependencies = [
 [tool.uv]
 managed = true
 [tool.uv.sources]
-pyskeleton-core = { editable = true }
-pyskeleton-interfaces = { editable = true }
+# pyskeleton-core = { workspace = "packages/pyskeleton-core" }
+# pyskeleton-interfaces = { workspace = "packages/pyskeleton-interfaces" }
+
 [tool.uv.workspace]
 members = [
     "packages/pyskeleton-core",
@@ -38,7 +39,7 @@ build-backend = "setuptools.build_meta"
 [tool.setuptools]
 package-dir = {"pyskeleton_core" = "packages/pyskeleton-core/src/pyskeleton_core", "pyskeleton_interfaces" = "packages/pyskeleton-interfaces/src/pyskeleton_interfaces"}
 
-packages = ["pyskeleton_core", "pyskeleton_interfaces"]
+packages = { find = {} }  # 自动发现所有包
 [tool.setuptools.package-data]
 "*" = ["project-template/**"]  # 包含所有子目录和文件
 # 显式映射包路径

@@ -1,4 +1,5 @@
 import os
+import shutil
 from typing import Annotated, Optional
 
 import typer
@@ -48,8 +49,13 @@ def create(
         force,
         venv_path=venv_path,
     )
-    creator.run()
-    typer.echo(f"Project {project_name} created at {project_path}")
+    try:
+        creator.run()
+        typer.echo(f"Project {project_name} created at {project_path}")
+    except Exception as e:
+        typer.secho(f"Error creating project: {e}", fg=typer.colors.RED)
+        shutil.rmtree(creator.project_path, ignore_errors=True)
+        raise typer.Exit(code=1) from e
 
 
 def main():

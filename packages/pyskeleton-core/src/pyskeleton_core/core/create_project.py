@@ -3,7 +3,7 @@ import shutil
 import subprocess
 from pathlib import Path
 
-import toml
+from jinja2 import Environment, FileSystemLoader
 
 from pyskeleton_core.templates.auto_fix_import import AutoFixImportPath
 from pyskeleton_core.templates.devcontainer import DevContainerRenderer
@@ -31,16 +31,16 @@ class ProjectCreator:
         """
         for root, _, files in os.walk(self.project_path):
             for file in files:
-                if file == "pyproject.toml":
-                    pyproject_path = Path(root) / file
-                    # with open(pyproject_path, "rb") as f:
-                    data = toml.load(pyproject_path)
-                    name = data["project"]["name"]
-                    data["project"]["name"] = name.replace(
-                        "template", self.project_name
-                    )
-                    with open(pyproject_path, "w") as f:
-                        toml.dump(data, f)
+                if file == "pyproject.toml.j2":
+                    _root = Path(root)
+                    env = Environment(loader=FileSystemLoader(_root))
+                    template = env.get_template("pyproject.toml.j2")
+                    context = {
+                        "project_name": self.project_name,
+                    }
+                    output = template.render(context)
+                    with open(_root / "pyproject.toml", "w", encoding="utf8") as f:
+                        f.write(output)
 
     def create_project_structure(self):
         self.project_path.parent.mkdir(parents=True, exist_ok=True)

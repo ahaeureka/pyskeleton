@@ -1,5 +1,5 @@
 [project]
-name = "project-template"
+name = "{{project_name}}"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
@@ -8,9 +8,9 @@ dependencies = []
 
 [tool.uv.workspace]
 members = [
-    "packages/template-core",
-    "packages/template-interfaces",
-    "packages/template-app",
+    "packages/{{project_name}}-core",
+    "packages/{{project_name}}-interfaces",
+    "packages/{{project_name}}-app",
 ]
 [dependency-groups]
 dev = [
