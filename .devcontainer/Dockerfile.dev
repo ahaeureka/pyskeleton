@@ -35,4 +35,4 @@ RUN pip config set global.index-url $PIP_INDEX_URL && \
     pip config set global.trusted-host $(echo "$PIP_INDEX_URL" | sed -E 's|^https?://([^/]+).*|\1|') && \
     . $VIRTUAL_ENV/bin/activate  && \
     uv sync -v --active --all-packages --default-index $PIP_INDEX_URL --index-strategy unsafe-best-match --prerelease=allow --no-build-isolation && \
-    cp .devcontainer/pyskeleton.pth  /opt/.uv.venv/lib/python${PYTHON_VERSION}/site-packages/pyskeleton.pth
+    cp .devcontainer/project.pth  /opt/.uv.venv/lib/python${PYTHON_VERSION}/site-packages/project.pth

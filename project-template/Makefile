@@ -35,7 +35,7 @@ $(VENV)/.testenv: $(VENV)/bin/activate
 		. $(VENV_BIN)/activate && uv sync --all-packages --reinstall --no-build-isolation --no-dev --no-group dev  \
 			--link-mode=copy; \
 	fi
-	cp .devcontainer/elibris.pth $(VENV)/lib/python3.11/site-packages
+	cp .devcontainer/project.pth $(VENV)/lib/python3.11/site-packages
 	touch $(VENV)/.testenv
 	. $(VENV_BIN)/activate && uv tool install  ruff
 	. $(VENV_BIN)/activate && uv tool install pytest
@@ -45,7 +45,7 @@ $(VENV)/.testenv: $(VENV)/bin/activate
 
 
 .PHONY: fmt
-fmt: setup ## Format Python code (only modified/added files)
+fmt: testenv ## Format Python code (only modified/added files)
 ifneq ($(strip $(GIT_FILES)),)
 	# Format code
 	$(VENV_BIN)/ruff format $(GIT_FILES)
@@ -57,7 +57,7 @@ else
 endif
 
 .PHONY: fmt-check
-fmt-check: setup ## Check Python code formatting and style without making changes (only modified/added files)
+fmt-check: testenv ## Check Python code formatting and style without making changes (only modified/added files)
 ifneq ($(strip $(GIT_FILES)),)
 	$(VENV_BIN)/ruff format --check $(GIT_FILES)
 	$(VENV_BIN)/ruff check --select I $(GIT_FILES)
@@ -70,7 +70,7 @@ endif
 pre-commit: fmt-check mypy ## Run formatting and unit tests before committing
 
 .PHONY: mypy
-mypy: setup## Run mypy checks (only modified/added files)
+mypy: testenv## Run mypy checks (only modified/added files)
 ifneq ($(strip $(GIT_FILES)),)
 	uv tool run mypy --config-file .mypy.ini $(GIT_FILES)
 else
